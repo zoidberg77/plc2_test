@@ -179,12 +179,11 @@ object MainApp extends App {
 
     var count = 0
     def third(x: Int) = {
-      print(count)
-      count += 1
-      if (count > 3) { count = 0 }
-      count % 3 == 0
+      var bool = count % 2 == 0
+      count+=1
+      bool
     }
-    println(v.takeWhile(third))
+    println(v.filter(third))
 
 
   }
