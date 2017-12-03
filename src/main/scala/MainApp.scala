@@ -192,11 +192,11 @@ object MainApp extends App {
       y => z => x+y+z
     }
 
-    val lorenz = addA(6,6,6)
-    val dumm = addB(1)(1)(1)
+    val p = addA(6,6,6)
+    val q = addB(1)(1)(1)
 
-    println(lorenz)
-    println(dumm)
+    println(p)
+    println(q)
 
 
 
