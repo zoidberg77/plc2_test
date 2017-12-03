@@ -4,6 +4,8 @@ import DollarConverter._
 import Printer._
 import akka.actor.{ActorRef, ActorSystem, Props}
 
+import scala.collection.mutable.ListBuffer
+
 // test verschiedneer konzepte
 // case class
 
@@ -185,6 +187,10 @@ object MainApp extends App {
     }
     println(v.filter(third))
 
+
+    //TESTING CURRYING
+
+
     def addA(x: Int, y: Int, z: Int)=
       x+y+z
 
@@ -199,11 +205,59 @@ object MainApp extends App {
     println(q)
 
 
+    //TESTING FUN WITH LISTS(Not to confuse with"Fun with Flags")
+
+    var list1 = List(1,2,3,4)
+    var list2 = List(5)
+    var list3 = List(100)
+    var list4 = 0::list1
+    list4+:list2
+
+    println(list4)
+    //Something went wrong here
 
 
+    //TESTING LISTBUFFER
+
+    var fruits = new ListBuffer[String]()
+
+    fruits += "Apple"
+    fruits += "Banana"
+    fruits += "(V)(;,,;)(V)"
+    fruits -= "Apple"
+    println(fruits(0))
+
+    println(fruits)
 
 
+    //FUN WITH PATTERNMATCHING
+    def funPatterMatching(list :List[Int]) = list match {
+      case List(0, p, q) => p + q
+      case _ => -1
+    }
 
+    println(funPatterMatching(List(0,1,2)))
+    println(funPatterMatching(List(1,1,2)))
+
+
+    //FUN WITH ALGEBRAIC DATATYPES
+
+    sealed abstract class Shape
+    case class Circle(r: Int) extends Shape
+    case class Rectangle(h: Int, w: Int) extends Shape
+
+
+    val sc:Shape = Circle(10)
+    val sr:Shape = Rectangle(5,5)
+
+
+    def area(a: Shape) = a match {
+      case Circle(r) => math.Pi*r*r
+      case Rectangle(h,w) => (h*w) toDouble
+    }
+
+    println(area(sc))
+    println(area(sr))
   }
 
   finally {
