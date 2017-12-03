@@ -185,6 +185,24 @@ object MainApp extends App {
     }
     println(v.filter(third))
 
+    def addA(x: Int, y: Int, z: Int)=
+      x+y+z
+
+    def addB(x: Int): Int=>(Int=> Int) = {
+      y => z => x+y+z
+    }
+
+    val lorenz = addA(6,6,6)
+    val dumm = addB(1)(1)(1)
+
+    println(lorenz)
+    println(dumm)
+
+
+
+
+
+
 
   }
 
