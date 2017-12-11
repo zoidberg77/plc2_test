@@ -1,0 +1,33 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/abgabe2_2.12-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Printer$Print.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/Printer$Print.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MainApp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/MainApp.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Printer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/Printer.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$euro2bitcoin$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$euro2bitcoin$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Printer$$anonfun$receive$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/Printer$$anonfun$receive$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$euro2bitcoin.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$euro2bitcoin.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Printer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/Printer$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$euro2dollar$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$euro2dollar$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$euro2dollar.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$euro2dollar.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MainApp$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/MainApp$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Printer$Print$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/Printer$Print$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	MainApp$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/MainApp$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$$anonfun$receive$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$$anonfun$receive$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EuroConverter$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/martin/Projects/PLC 2017/abgabe2/target/scala-2.12/classes/EuroConverter$.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m

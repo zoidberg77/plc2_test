@@ -9,6 +9,53 @@ import scala.collection.mutable.ListBuffer
 // test verschiedneer konzepte
 // case class
 
+// TEST KONSTRUKTOR
+
+class Test(val value1 : Int, value2 : Int, var variable2 : Int){
+  //konstruktor ist hier implizit -
+  // beim callen var werte übergeben oder er nmmt defaults
+  variable2 = 1
+  var variable1 = 0
+  override def toString: String = variable1+variable2 toString
+}
+
+//TEST OF TRAITS and MORE PATTERN AMTCHHING
+
+sealed abstract class Form //sealed class: wie final, aber darf im selben src file überschrieben werden
+case class Kreis(radius : Int)
+case class Rechtreck(hoehe : Int, breite : Int)
+
+trait Testtrait {
+  def calcsomething(aa : Int, bb : Int) : Int  = {
+    aa * bb
+  }
+  def calcnothing(aa : Int, bb : Int) : Int
+}
+
+object Kreiseck extends Kreis(1) with Testtrait {
+  val hoehe = radius * 5
+  val breite = calcsomething(hoehe, radius)
+  override def calcnothing(aa : Int, bb : Int) : Int = {
+    aa+bb
+  }
+}
+
+//TESTING VALS AND VARS
+class ChecksumAccumulator {
+  var sum = 0
+}
+
+// TESTING ACCESS MODIFIERS - Everything is implicitly public if not declared elsewise
+class ChecksumAccumulator2 {
+  private var sum = 0
+  protected def add(b: Byte): Unit = sum += b
+  def checksum(): Int = ~( sum & 0xFF) + 1
+}
+
+// CONTAINERS IMMUTABLE BY DEFAULT - USE THOSE FOR MUTABLE CONTAINERS
+import scala.collection.mutable
+
+
 case class Pocket(money: Double, size: Int) // wie ein struct
 
 object MainApp extends App {
@@ -21,9 +68,12 @@ object MainApp extends App {
     val bc: ActorRef = system.actorOf(BitcoinConverter.props(printer), "bitcoinConverter")
     val dc: ActorRef = system.actorOf(DollarConverter.props(printer), "dollarConverter")
 
+
     val bitcoin = BigDecimal("1")
     val dollar = BigDecimal("200")
     val euro = BigDecimal("300")
+
+    printer ! Print("wtest")
 
     bc ! bitcoin2dollar(bitcoin)
     bc ! bitcoin2euro(bitcoin)
@@ -31,6 +81,8 @@ object MainApp extends App {
     dc ! dollar2bitcoin(dollar)
     ec ! euro2dollar(euro)
     ec ! euro2bitcoin(euro)
+
+
 
     //TEST CASE CLASS
     val p1 = Pocket(123.5, 5)
@@ -118,6 +170,45 @@ object MainApp extends App {
     println(r)
 
     //CONTAINER CLASSES
+    var av = ListBuffer(0,5)
+    av.append(7)
+    av.append(71)
+    av.prepend(8)
+    println("\n")
+    println(av)
+    println("\n")
+
+    val avl = av.filter(x => x < 7).toList
+
+    println(avl)
+    println("\n")
+
+    println(avl.map(x => x + 1000))
+    println("\n")
+
+    println(avl.reduce((x,y) => x+y))
+    println("\n")
+
+    for( a <- 1 to 10){ av.append(a) }
+    val avl2 =  av.toList
+    println(avl2.sortBy( x => x )) //sortiert nach attribut. man kann auch einfach nur zB .age einwerfen
+    println("\n")
+
+    avl2.foreach( x => print(x)) //man darf das x aber nicht verändern
+    println("\n")
+
+    println(avl2.sortWith((x,y) => x>y))
+    println("\n")
+
+    def uneven (x : Int) : Boolean = { x%2 != 0 }
+
+    println()
+    println(avl2.forall(uneven)) // are all elements uneven?
+    println(avl2.exists(uneven)) // is there even one uneven elem?
+    println(avl2.takeWhile(uneven)) // take until you find an uneven elen
+    println(avl2.dropWhile(uneven)) // dont know what it does - lets see
+    println("\n")
+
     val a = List(1,2,3,4,5,6,7)
     val b = a.map(x => x * x)
     val c = a.filter(x => x < 5)
@@ -258,6 +349,72 @@ object MainApp extends App {
 
     println(area(sc))
     println(area(sr))
+
+    // TESTING LAZY VALS
+
+    // Lazy vals are only evaluated when used somewhere ind the code
+
+    def hello() = {
+      println("hello")
+      10
+    }
+    lazy val testlazy1 = hello()
+    println(testlazy1 + testlazy1 + testlazy1)
+
+    // TESTING PURE FUNCTIIONS
+    // PURE FUNCTIONS -> REFERENTIALLY TRANSPARANT -> always give same result for same input
+    // FUNCTIONAL PROGRAMMING -> focus on using pure functions. inefficient, so we use mostly pure
+    // and some impure outer layers for communication with "outside world".
+
+    case class Player(name: String, score: Int)
+
+    def declareWinner(p: Player) =
+      println(p.name + " is the winner!! ")
+
+    def maxScore(p1: Player, p2: Player) =
+      if (p1.score > p2.score) p1 else p2
+
+    def winner(p1: Player, p2: Player) =
+      declareWinner(maxScore(p1, p2))
+
+    winner(Player("Ram", 10), Player("John", 20))
+
+    //TESTING VALS AND VARS - SEE TOP OF FILE FOR CLASS
+
+    val acc = new ChecksumAccumulator()
+    val csa = new ChecksumAccumulator()
+    acc.sum = 3
+
+    println(acc.sum + " " + csa.sum)
+
+    //TESTING CHARACTER LITERALS
+
+    println("Welcome to Programming Languages and Concepts 2017 at the" +
+      "University of Vienna") // this could caus problems in REPL?
+
+    //STRING INTERPOLATION
+    val name = "reader"
+    println(s"Hello, $name!")
+
+    //OPERATORS ARE METHODES
+    //val sum = 1 + 2
+    //is same as
+    //val sum1 = 1.+(2)
+
+    //EQUALITY: == and != applay to all objects in scala
+
+
+    //TESTING SOME LIST OPERATIONS
+    val newv = v.map(x => x + 1)
+
+    println(newv)
+    println(v)
+
+    var newBufferedList = ListBuffer(95, 87, 20, 45, 35, 66, 10, 15)
+    newBufferedList.foreach (x => x + 1)
+    println(newBufferedList)
+    //this doesnt work properly
+
   }
 
   finally {
