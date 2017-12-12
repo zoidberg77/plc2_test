@@ -24,8 +24,22 @@ case class messageType1(msg1 : String) extends Notification with msgTrait1
 case class messageType2(msg1 : String, msg2 : String) extends Notification with msgTrait1
 //PATTERN MATCHING AND TRAITS END
 
+//SINGLETON/COMPANION OBJECT BEGIN
+object Pocket {
+  final val defaultMsg = "comanion name"
+  final def companionMethod() : String = {
+    defaultMsg
+  }
+}
+//SINGLETON/COMPANION OBJECT END
+
 //CONSTRUCTORS BEGIN
 class Pocket (val name : String, var size : Int, var value : Double){
+  import Pocket._
+
+  def this() {
+    this(Pocket.defaultMsg, 2, 0)
+  }
   def this (name : String) {
     this(name, 5, 0)
   }
@@ -98,16 +112,59 @@ object MainApp extends App {
     println("CONSTRUCTORS END\n")
 
     println("LEXIAL CLOSURE, NESTED FUNCTIONS, ANONYMOUS FUNCTIONS BEGIN")
-    var func = (int1 : Integer, int2: Integer) => int1 + int2
-    println(func(1,5))
-    println()
+    def calcWithAnonFunction(lop : Int, rop : Int, f : (Int, Int) => Int ) : Int = {
+      f(lop, rop)
+    }
+    println(calcWithAnonFunction(3,4, (v1 : Int, v2 : Int) => v2 * v1))
+    println(calcWithAnonFunction(3,4, (v1 : Int, v2 : Int) => v2 + v1))
+    def calcWithAnonFunctionAndLexicalCLosure() : (Int, Int) => Int = {
+      val y = 10
+      (lop, rop) => (lop + rop) * y
+    }
+    println(calcWithAnonFunctionAndLexicalCLosure()(3,4))
+    var someFunction = calcWithAnonFunctionAndLexicalCLosure()
+    println(someFunction(3,4))
     println("LEXIAL CLOSURE, NESTED FUNCTIONS, ANONYMOUS FUNCTIONS END\n")
 
     println("MUTABLE AND IMMUTABLE CONTAINERS BEGIN")
-    println("MUTABLE AND IMMUTABLE CONTAINERS BEGIN")
+    var cnt = 0
+    def everyThird(x : Int) : Boolean = {
+      if(cnt % 2 == 0) { cnt +=1; true }
+      else { cnt += 1; false }
+
+    }
+    val list1 = List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
+    val list1Filtered = list1.filter( x => x % 2 != 0)
+    println(list1Filtered)
+    println(list1.filter( x => x % 3 != 0))
+    println(list1.filter(everyThird))
+
+    println(List(p1,p2,p3).sortBy(_.value))
+    println(List(p1,p2,p3).sortWith( (lop : Pocket, rop : Pocket) => lop.size > rop.size ))
+
+    println(List(p1,p2,p3).+:(new Pocket()))
+    println(List(p1,p2,p3).foreach(p => println(p)))
+
+    println(1::list1Filtered)
+    var vector1 = (1::list1Filtered).toVector
+    println(vector1.count(x => x > 1))
+    println(vector1)
+
+    var list2 = scala.collection.mutable.ListBuffer(2,3)
+    list2.+=(13)
+    println(list2)
+
+    var list3 = list1.takeWhile(x => x%2 !=0)
+    var list4 = list1.to[ListBuffer]
+    println("MUTABLE AND IMMUTABLE CONTAINERS END\n")
+
+    //lazy vals
+    println("SINGLETON/COMPANION OBJECT BEGIN")
+    print(Pocket.companionMethod())
+    println("SINGLETON/COMPANION OBJECT END\n")
 
     println("AKKA BEGIN")
-    println("AKKA END")
+    println("AKKA END\n")
   }
   catch  {
     case ex : Exception => {
