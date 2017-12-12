@@ -1,3 +1,5 @@
+import java.lang.{Exception, RuntimeException}
+
 import EuroConverter._
 import BitcoinConverter._
 import DollarConverter._
@@ -6,11 +8,119 @@ import akka.actor.{ActorRef, ActorSystem, Props}
 
 import scala.collection.mutable.ListBuffer
 
-// test verschiedneer konzepte
-// case class
+//REPETITION OF SCALA CONCEPTS
+
+//PATTERN MATCHING, INHERITANCE, CASE CLASSES AND TRAITS BEGIN
+sealed abstract class Notification
+trait msgTrait1 {
+  final def printMsg : Unit = {
+    this match {
+      case messageType1 : messageType1 => print("The Notification contains the following Mesage: " + messageType1.msg1 + "\n")
+      case messageType2: messageType2 => print("The Notification contains the following Mesage: " + messageType2.msg1 + " " + messageType2.msg2 + "\n")
+    }
+  }
+}
+case class messageType1(msg1 : String) extends Notification with msgTrait1
+case class messageType2(msg1 : String, msg2 : String) extends Notification with msgTrait1
+//PATTERN MATCHING AND TRAITS END
+
+//CONSTRUCTORS BEGIN
+class Pocket (val name : String, var size : Int, var value : Double){
+  def this (name : String) {
+    this(name, 5, 0)
+  }
+  def this (name : String, value : Int) {
+    this(name, value, 0)
+  }
+  override def toString(): String = {
+    "The pocket " + name + " has size " + s"$size" + " and value " + s"$value"
+  }
+}
+//CONSTRUCTORS END
+
+
+object MainApp extends App {
+  val system: ActorSystem = ActorSystem("mainAkka")
+  try{
+    println("PATTERN MATCHING, INHERITANCE, CASE CLASSES AND TRAITS BEGIN")
+    val email = messageType1("email")
+    val sms = messageType2("SMS", "0664 123 456 7")
+    email.printMsg
+    sms.printMsg
+    val sms2 = sms.copy("SMS2")
+    sms2.printMsg
+    println("PATTERN MATCHING, INHERITANCE, CASE CLASSES AND TRAITS END\n")
+    println("HIGHER ORDER FUNCTIONS BEGIN")
+    def concatenation (mode : Int, string3 : String) : (String, String) => String  = {
+      mode match {
+        case 1 => {
+          def concat1 (string1: String, string2: String): String = {
+            "concat mode 1: " + string1 + " " + string2 + " " + string3 +  "\n"
+          }
+          concat1
+        }
+        case 2 =>
+        {
+          def concat2(string1: String, string2: String): String = {
+            "concat mode 2: " + string1 + " " + string3 + " " + string2 +  "\n"
+          }
+          concat2
+        }
+        case _ =>  {
+          def concat_(string1: String, string2: String): String = {
+            "concat mode _: " + string3 + " " + string2 + " " + string1 +  "\n"
+          }
+          concat_
+        }
+      }
+    }
+
+    print(concatenation(1, "outerarg").apply("innerarg1", "innerarg2"))
+    println("HIGHER ORDER FUNCTIONS END\n")
+    println("CURRYING FUNCTIONS BEGIN")
+    def firstLetters (s1 : String, s2: String) :  String = {
+      s1.substring(0,1) + s2.substring(0,1)
+    }
+    println(firstLetters("abc","def"))
+
+    def firstLettersCurry(s1 : String) : String => String = {
+      def flFunc (s2 : String) : String = { s1.substring(0,1) + s2.substring(0,1) }
+      flFunc
+    }
+    println(firstLettersCurry("abc")("def"))
+    println("CURRYING FUNCTIONS END\n")
+
+    println("CONSTRUCTORS BEGIN")
+    val p1 = new Pocket("p1")
+    val p2 = new Pocket("p2", 10)
+    val p3 = new Pocket("p3", 15, 100)
+    println(p1); println(p2); println(p3)
+    println("CONSTRUCTORS END\n")
+
+    println("LEXIAL CLOSURE, NESTED FUNCTIONS, ANONYMOUS FUNCTIONS BEGIN")
+    var func = (int1 : Integer, int2: Integer) => int1 + int2
+    println(func(1,5))
+    println()
+    println("LEXIAL CLOSURE, NESTED FUNCTIONS, ANONYMOUS FUNCTIONS END\n")
+
+    println("MUTABLE AND IMMUTABLE CONTAINERS BEGIN")
+    println("MUTABLE AND IMMUTABLE CONTAINERS BEGIN")
+
+    println("AKKA BEGIN")
+    println("AKKA END")
+  }
+  catch  {
+    case ex : Exception => {
+      println(ex.getMessage)
+    }
+  }
+  finally {
+    system.terminate()
+  }
+}
 
 // TEST KONSTRUKTOR
-
+/*
 class Test(val value1 : Int, value2 : Int, var variable2 : Int){
   //konstruktor ist hier implizit -
   // beim callen var werte übergeben oder er nmmt defaults
@@ -25,7 +135,7 @@ sealed abstract class Form //sealed class: wie final, aber darf im selben src fi
 case class Kreis(radius : Int)
 case class Rechtreck(hoehe : Int, breite : Int)
 
-trait Testtrait {
+trait Testtrait { //sowas wie ein interface
   def calcsomething(aa : Int, bb : Int) : Int  = {
     aa * bb
   }
@@ -420,4 +530,4 @@ object MainApp extends App {
   finally {
     system.terminate()
   }
-}
+}*/
