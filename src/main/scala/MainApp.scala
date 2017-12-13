@@ -164,6 +164,28 @@ object MainApp extends App {
     println("SINGLETON/COMPANION OBJECT END\n")
 
     println("AKKA BEGIN")
+    val printer: ActorRef = system.actorOf(Printer.props, "printerActor")
+    val ec: ActorRef = system.actorOf(EuroConverter.props(printer), "euroConverter")
+    val bc: ActorRef = system.actorOf(BitcoinConverter.props(printer), "bitcoinConverter")
+    val dc: ActorRef = system.actorOf(DollarConverter.props(printer), "dollarConverter")
+    val tc: ActorRef = system.actorOf(DollarConverter.props(printer), "etheriumConverter")
+
+
+    val bitcoin = BigDecimal("1")
+    val dollar = BigDecimal("200")
+    val euro = BigDecimal("300")
+
+    printer ! Print("wtest")
+
+    bc ! bitcoin2dollar(bitcoin)
+    bc ! bitcoin2euro(bitcoin)
+    dc ! dollar2euro(dollar)
+    dc ! dollar2bitcoin(dollar)
+    ec ! euro2dollar(euro)
+    ec ! euro2bitcoin(euro)
+    tc ! euro2etherium(euro)
+    tc ! bitcoin2etherium(bitcoin)
+
     println("AKKA END\n")
   }
   catch  {

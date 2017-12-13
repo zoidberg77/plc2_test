@@ -4,6 +4,7 @@ object EuroConverter {
   def props(printerActor: ActorRef): Props = Props(new EuroConverter(printerActor))
   case class euro2bitcoin(euro: BigDecimal)
   case class euro2dollar(euro: BigDecimal)
+  case class euro2etherium(dollar: BigDecimal)
 }
 
 class EuroConverter(printerActor: ActorRef) extends Actor with ActorLogging {
@@ -18,6 +19,10 @@ class EuroConverter(printerActor: ActorRef) extends Actor with ActorLogging {
     case euro2dollar(euro) =>
       printerActor ! PrintCurrency (1.18*euro)
       //printerActor ! Print(" Dollar")
+
+    case euro2etherium(euro) =>
+      printerActor ! PrintCurrency (1.18*euro)
+    //printerActor ! Print(" Dollar")
   }
 
 }
